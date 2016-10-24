@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="cameraShop">
+  <head>
+    <meta charset="utf-8">
+    <style media="screen">
+      ul {
+        list-style-type: none;
+      }
+      img {
+        height: 5rem;
+      }
+      .onSale {
+        color: orange;
+      }
+    </style>
+    <title>Camera Shop</title>
+  </head>
+  <body ng-controller="mainController">
+    <h1>Camera Shop</h1>
+    <select name="display" ng-model="display">
+      <option value="price">Price</option>
+      <option value="rating">Rating</option>
+    </select>
+      <br>
+      <ul>
+        <li ng-repeat="camera in cameras | orderBy:display ">
+          <h4>{{ camera.title }}</h4>
+          <p ng-show="camera.onSale" ng-class="{onSale: camera.onSale }">Price: {{ camera.price | currency }} ON SALE!!</p>
+          <p ng-hide="camera.onSale" ng-class="{onSale: camera.onSale }">Price: {{ camera.price | currency }}</p>
+          <p>Rating: {{ camera.rating }}</p><br>
+          <img src="{{ camera.image }}" alt="{{ camera.title}}" />
+        </li>
+      </ul>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+    <script type="text/javascript" src="./app.js"></script>
+  </body>
+</html>

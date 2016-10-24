@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="cameraShop">
+  <head>
+    <meta charset="utf-8">
+    <style media="screen">
+      ul {
+        list-style-type: none;
+      }
+      img {
+        height: 5rem;
+      }
+      .onSale {
+        color: orange;
+      }
+    </style>
+    <title>Camera Shop</title>
+  </head>
+  <body ng-controller="CartController">
+    <h1>Camera Shop</h1>
+    <select name="display" ng-model="display">
+      <option value="price">Price</option>
+      <option value="rating">Rating</option>
+    </select>
+      <br>
+      <ul>
+        <li ng-repeat="camera in cameras | orderBy:display ">
+          <h4>{{ camera.title }}</h4>
+          <p ng-show="camera.onSale" ng-class="{onSale: camera.onSale }">Price: {{ camera.price | currency }} ON SALE!!</p>
+          <p ng-hide="camera.onSale" ng-class="{onSale: camera.onSale }">Price: {{ camera.price | currency }}</p>
+          <p>Rating: {{ camera.rating }}</p><br>
+          <img src="{{ camera.image }}" alt="{{ camera.title}}" />
+          <button type="button" name="addToCart" ng-click="addToCart(camera)">Add to cart</button>
+        </li>
+      </ul>
+      <div class="cart">
+        <h2>Shopping Cart:</h2>
+        <ul>
+          <li ng-repeat="camera in cart track by $index">
+            <p><strong>{{ camera.title }}</strong>---{{ camera.price | currency }}</p><h4>{{ $index }}</h4>
+            <button type="button" name="removeItem" ng-click="removeItem(camera)">Remove Item</button>
+            <hr>
+          </li>
+        </ul>
+        <h4>Subtotal: {{ subtotal | currency }}</h4>
+        <h4>Sales Tax: {{ tax | currency }}</h4>
+        <h2>Total: {{ total | currency }}</h2>
+
+
+      </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+    <script type="text/javascript" src ="./app2.js"></script>
+  </body>
+</html>
